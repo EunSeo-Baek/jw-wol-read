@@ -59,7 +59,7 @@ const QuestionsPage: React.FC = () => {
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const response = await fetch(`${window.location.origin}/data/all-questions.json`, {
+        const response = await fetch(`/data/all-questions.json`, {
           headers: {
             "Accept": "application/json",
           },
