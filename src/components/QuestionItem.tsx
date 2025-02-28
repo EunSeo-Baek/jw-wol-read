@@ -1,7 +1,7 @@
 // src/components/QuestionItem.tsx
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import { Question } from '../types';
+import React, { useState } from "react";
+import styled from "styled-components";
+import { Question } from "../types";
 
 const QuestionCard = styled.div`
   border: 1px solid #e0e0e0;
@@ -10,7 +10,7 @@ const QuestionCard = styled.div`
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   background-color: white;
   transition: transform 0.2s;
-  
+
   &:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -29,7 +29,7 @@ const QuestionTitle = styled.h3`
   margin: 0;
   color: #4a76a8;
   cursor: pointer;
-  
+
   &:hover {
     text-decoration: underline;
   }
@@ -53,7 +53,7 @@ const ReadMoreButton = styled.button`
   font-size: 0.9rem;
   padding: 0;
   margin-top: 10px;
-  
+
   &:hover {
     text-decoration: underline;
   }
@@ -65,7 +65,7 @@ const OriginalLink = styled.a`
   color: #4a76a8;
   text-decoration: none;
   font-size: 0.9rem;
-  
+
   &:hover {
     text-decoration: underline;
   }
@@ -77,18 +77,11 @@ interface QuestionItemProps {
 
 const QuestionItem: React.FC<QuestionItemProps> = ({ question }) => {
   const [expanded, setExpanded] = useState(false);
-  
+
   const toggleExpand = () => {
     setExpanded(!expanded);
   };
-  
-  // 질문 내용 자르기 (미리보기용)
-  const previewLength = 200;
-  const hasLongQuestion = question.question.length > previewLength;
-  const questionPreview = hasLongQuestion
-    ? `${question.question.substring(0, previewLength)}...`
-    : question.question;
-  
+
   return (
     <QuestionCard>
       <QuestionHeader>
@@ -97,14 +90,26 @@ const QuestionItem: React.FC<QuestionItemProps> = ({ question }) => {
           {question.year}년 {question.issue}
         </QuestionMeta>
       </QuestionHeader>
-      
+
       <QuestionContent>
-        <p><strong>요약:</strong> {expanded ? question.question : questionPreview}</p>
-        {!expanded && hasLongQuestion && (
-          <ReadMoreButton onClick={toggleExpand}>더 보기</ReadMoreButton>
+        <p>
+          <strong>질문: </strong>
+          {question.subtitle}
+        </p>
+
+        {expanded && (
+          <p>
+            <strong>본문 요약: </strong>
+            {question.question}
+          </p>
         )}
       </QuestionContent>
-      <OriginalLink href={question.url} target="_blank" rel="noopener noreferrer">
+
+      <OriginalLink
+        href={question.url}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         원본 페이지 보기
       </OriginalLink>
     </QuestionCard>

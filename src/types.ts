@@ -6,4 +6,5 @@ export interface Question {
   url: string;
   question: string;
   answer: string;
+  subtitle: string;
 }

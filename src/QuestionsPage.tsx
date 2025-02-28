@@ -59,31 +59,34 @@ const QuestionsPage: React.FC = () => {
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const response = await fetch(`/data/all-questions.json`, {
-          headers: {
-            "Accept": "application/json",
-          },
-        });
-    
+        const response = await fetch(
+          process.env.PUBLIC_URL + "/data/all-questions.json",
+          {
+            headers: { Accept: "application/json" },
+          }
+        );
+
         if (!response.ok) {
           throw new Error(`HTTP 오류 발생! 상태 코드: ${response.status}`);
         }
-    
+
         // HTML이 응답으로 오는 경우 감지
         const responseText = await response.text();
         if (responseText.startsWith("<!DOCTYPE html>")) {
-          throw new Error("서버에서 HTML을 반환했습니다. JSON 파일이 정상적으로 제공되는지 확인하세요.");
+          throw new Error(
+            "서버에서 HTML을 반환했습니다. JSON 파일이 정상적으로 제공되는지 확인하세요."
+          );
         }
-    
+
         // JSON 파싱
         const data = JSON.parse(responseText);
         setQuestions(data);
-    
+
         // 가용한 연도 추출
         const yearSet = new Set<string>(data.map((q: Question) => q.year));
         const years = Array.from(yearSet).sort((a, b) => b.localeCompare(a));
         setAvailableYears(years);
-    
+
         setLoading(false);
       } catch (err) {
         setError("데이터를 불러오는데 오류가 발생했습니다");
@@ -91,7 +94,6 @@ const QuestionsPage: React.FC = () => {
         console.error("❌ Error fetching questions:", err);
       }
     };
-    
 
     fetchQuestions();
   }, []);
@@ -106,11 +108,8 @@ const QuestionsPage: React.FC = () => {
 
     if (searchQuery.trim() !== "") {
       const query = searchQuery.toLowerCase();
-      filtered = filtered.filter(
-        (q) =>
-          q.title.toLowerCase().includes(query) ||
-          q.question.toLowerCase().includes(query) ||
-          q.answer.toLowerCase().includes(query)
+      filtered = filtered.filter((q) =>
+        q.subtitle.toLowerCase().includes(query)
       );
     }
 
@@ -138,7 +137,11 @@ const QuestionsPage: React.FC = () => {
       <Header>
         <Title>파수대 독자의 질문 모음</Title>
         <Subtitle>여호와의 증인 파수대에 실린 독자의 질문과 답변 모음</Subtitle>
-        <p>제작자의 말: 이 페이지는 <strong>2025년 2월 28일</strong>에 마지막으로 업데이트 되었습니다. 요약 보다는 <strong>"원본 페이지 보기"</strong>를 사용하기를 권장합니다.</p>
+        <p>
+          제작자의 말:
+          <br />이 페이지는 <strong>2025년 3월 1일</strong>에 마지막으로 업데이트 되었습니다.
+          <br /><strong>"원본 페이지 보기"</strong>를 사용하기를 권장합니다.
+        </p>
       </Header>
 
       <FiltersContainer>
