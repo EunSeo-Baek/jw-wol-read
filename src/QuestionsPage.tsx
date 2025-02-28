@@ -138,9 +138,8 @@ const QuestionsPage: React.FC = () => {
         <Title>파수대 독자의 질문 모음</Title>
         <Subtitle>여호와의 증인 파수대에 실린 독자의 질문과 답변 모음</Subtitle>
         <p>
-          제작자의 말:
-          <br />이 페이지는 <strong>2025년 3월 1일</strong>에 마지막으로 업데이트 되었습니다.
-          <br /><strong>"원본 페이지 보기"</strong>를 사용하기를 권장합니다.
+          마지막 업데이트: <strong>2025년 3월 1일</strong>
+          <br />제작자의 말: <strong>"원본 페이지 보기"</strong>를 사용하기를 권장합니다. 사적인 공유는 자제 부탁드립니다.
         </p>
       </Header>
 
